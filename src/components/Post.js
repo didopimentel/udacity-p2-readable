@@ -78,6 +78,7 @@ class Post extends Component{
                   <Link className="post-links" to="#" onClick={() => this.voteUp(thisPost)}>+</Link>
                   <Link className="post-links" to="#" onClick={() => this.voteDown(thisPost)}>-</Link>
                   <span className="breaker">|</span>
+                  <Link to={'/' + thisPost.category + '/' + thisPost.id}>Details</Link>
                   <Link className="post-links" to={'/posts/' + thisPost.id}>Edit</Link>
                   <Link to='#' onClick={() => this.remove(thisPost)}>Delete</Link>
                 </div>

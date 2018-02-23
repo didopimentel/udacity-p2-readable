@@ -18,6 +18,7 @@ import { addPost, addComment, addCategory } from '../actions'
 import  * as Api from '../api'
 import { Route, Link, BrowserRouter } from 'react-router-dom'
 import  ReactLoading  from 'react-loading'
+import * as asyncDispatch from './AsyncDispatcher'
 
 
 class App extends Component {
@@ -41,13 +42,21 @@ class App extends Component {
     success: false
   };
 
+
   componentDidMount(){
-    Api.getCategories().then((categories) => {
+    /*Api.getCategories().then((categories) => {
       categories.categories.map((category) => (
         this.props.dispatch(addCategory(category))
       ))
-    })
-    Api.getPosts().then((posts) => {
+    })*/
+
+    asyncDispatch.loadCategories(this.props.dispatch)
+
+    asyncDispatch.loadPosts(this.props.dispatch).then(
+      setTimeout(() => this.setState({loading: false}), 1000)
+    )
+
+    /*Api.getPosts().then((posts) => {
       posts.map((post) => {
         this.props.dispatch(addPost(post))
         Api.getComments(post.id).then((comments) => {
@@ -58,7 +67,7 @@ class App extends Component {
       })
       setTimeout(() => this.setState({loading: false}), 1000)
       }
-    )
+    )*/
   }
 
   toggleDropdown() {
@@ -106,7 +115,6 @@ class App extends Component {
     } else{
       thePosts = thePosts.slice().sort((a, b) => (b.voteScore) - a.voteScore)
     }
-
 
     return (
       <BrowserRouter>

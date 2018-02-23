@@ -19,14 +19,20 @@ function post (state = [], action){
 		case 'VOTE_POST':
 			return state.map((post) => {
 				if (action.post.id === post.id){
-					post.voteScore++
+					return{
+						...post,
+						voteScore: post.voteScore + 1
+					}
 				}
 				return post
 			})
 		case 'VOTE_DOWN_POST':
 			return state.map((post) => {
 				if (action.post.id === post.id){
-					post.voteScore--
+					return{
+						...post,
+						voteScore: post.voteScore - 1
+					}
 				}
 				return post
 			})
@@ -57,7 +63,10 @@ function comment (state = [], action){
 		case 'VOTE_COMMENT':
 			return state.map((comment) => {
 				if (action.comment.id === comment.id){
-					comment.voteScore++
+					return{
+						...comment,
+						voteScore: comment.voteScore + 1
+					}
 				}
 				return comment
 			})
@@ -65,7 +74,10 @@ function comment (state = [], action){
 		case 'VOTE_DOWN_COMMENT':
 			return state.map((comment) => {
 				if (action.comment.id === comment.id){
-					comment.voteScore--
+					return{
+						...comment,
+						voteScore: comment.voteScore - 1
+					}
 				}
 				return comment
 			})
